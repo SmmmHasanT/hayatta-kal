@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14181c">
+<title>Hayatta Kal</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="leaflet/leaflet.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>🏕️ Hayatta Kal</h1>
+  <div class="ust-butonlar">
+    <span id="durum" class="durum"></span>
+    <button id="gece" title="Gece modu (kırmızı)">🌙</button>
+  </div>
+</header>
+
+<main>
+  <!-- REHBER / İLK YARDIM / TELSİZ listeleri -->
+  <section id="v-liste" class="gorunum">
+    <input id="ara" type="search" placeholder="Ara: kanama, su, ateş, telsiz…" autocomplete="off">
+    <div id="sekme-kat" class="cipler">
+      <button data-kat="ilkyardim" class="aktif">İlk yardım</button>
+      <button data-kat="rehber">Hayatta kalma</button>
+      <button data-kat="telsiz">Telsiz</button>
+      <button data-kat="dugum">Düğümler</button>
+      <button data-kat="doga">Bitki & hayvan</button>
+    </div>
+    <ul id="liste" class="liste"></ul>
+  </section>
+
+  <section id="v-oku" class="gorunum gizli">
+    <button class="geri" id="geri">‹ Geri</button>
+    <article id="makale"></article>
+  </section>
+
+  <!-- ARAÇLAR -->
+  <section id="v-araclar" class="gorunum gizli">
+    <div class="izgara">
+      <button class="kart" data-arac="pusula">🧭<span>Pusula</span></button>
+      <button class="kart" data-arac="fener">🔦<span>El feneri</span></button>
+      <button class="kart" data-arac="sos">🆘<span>SOS / Mors</span></button>
+      <button class="kart" data-arac="duduk">📢<span>Düdük</span></button>
+      <button class="kart" data-arac="konum">📍<span>Konum & noktalar</span></button>
+      <button class="kart" data-arac="metronom">❤️<span>Kalp masajı metronomu</span></button>
+      <button class="kart" data-arac="kartim">🪪<span>Acil kartım & ilaçlarım</span></button>
+      <button class="kart" data-arac="rota">🧾<span>Rota planı</span></button>
+      <button class="kart" data-arac="bos" style="visibility:hidden"></button>
+    </div>
+    <div id="arac-panel"></div>
+  </section>
+
+  <!-- İLAÇ -->
+  <section id="v-ilac" class="gorunum gizli">
+    <input id="ilac-ara" type="search" placeholder="İlaç adı, etken madde, barkod…" autocomplete="off">
+    <p class="uyari kucuk" style="margin-top:10px">Bu bölüm tanıma ve genel bilgi içindir, doz önermez. Dozu prospektüsten, eczacıdan ya da hekimden öğren. Zehirlenme: <b>114</b>, acil: <b>112</b>.</p>
+    <div id="ilac-sonuc"></div>
+    <details id="ilac-ice" class="ice-aktar">
+      <summary>📥 Türkiye ruhsatlı ilaç listesini yükle <span id="ilac-durum" class="kucuk"></span></summary>
+      <ol class="kucuk">
+        <li>İnternet varken TİTCK sitesinde <b>"Ruhsatlı Beşeri Tıbbi Ürünler Listesi"</b> sayfasını aç: <span class="mono">titck.gov.tr/dinamikmodul/85</span> (ya da e-reçete ilaç listesi: <span class="mono">titck.gov.tr/dinamikmodul/43</span>).</li>
+        <li>En güncel Excel dosyasını telefona indir.</li>
+        <li>Aşağıdan dosyayı seç. Liste bu cihaza kaydedilir ve internetsiz aranır.</li>
+      </ol>
+      <a class="kucuk" href="https://www.titck.gov.tr/dinamikmodul/85" target="_blank" rel="noopener">TİTCK ruhsatlı ürünler sayfasını aç ↗</a>
+      <input type="file" id="ilac-dosya" accept=".xlsx,.xls,.csv" style="margin-top:10px">
+      <div id="ilac-ilerleme" class="kucuk"></div>
+      <button id="ilac-sil" class="kucuk" style="margin-top:8px">Yüklü listeyi sil</button>
+    </details>
+  </section>
+
+  <!-- HARİTA -->
+  <section id="v-harita" class="gorunum gizli">
+    <div id="harita"></div>
+    <div class="harita-alt">
+      <button id="h-konum">📍 Konumum</button>
+      <button id="h-nokta">➕ Nokta ekle</button>
+      <span id="h-bilgi" class="kucuk"></span>
+    </div>
+  </section>
+</main>
+
+<div id="isik" class="isik gizli"></div>
+
+<nav class="alt-menu">
+  <button data-v="liste" data-kat="ilkyardim" class="aktif">🩺<span>İlk yardım</span></button>
+  <button data-v="liste" data-kat="rehber">📖<span>Rehber</span></button>
+  <button data-v="araclar">🧰<span>Araçlar</span></button>
+  <button data-v="harita">🗺️<span>Harita</span></button>
+  <button data-v="liste" data-kat="telsiz">📻<span>Telsiz</span></button>
+  <button data-v="ilac">💊<span>İlaç</span></button>
+</nav>
+
+<script src="leaflet/leaflet.js"></script>
+<script src="content.js"></script>
+<script src="content2.js"></script>
+<script src="atc.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
